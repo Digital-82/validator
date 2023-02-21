@@ -1,7 +1,8 @@
 <?php
 
 class CardValidation {
-    public function validate($cardNumber) {
+    public function validate($cardNumber)
+    {
         $cardNumber = str_replace(' ', '', $cardNumber);
         $sum = 0;
         $length = strlen($cardNumber);
@@ -20,10 +21,11 @@ class CardValidation {
 
         if ($sum % 10 == 0) {
             $isValid = 'валидная';
+
         } else {
             $isValid = 'невалидная';
         }
-        // Проверка эмитента карты
+
         if (preg_match('/^(41|42|43|44|45|46|47|48|49|14)/', $cardNumber)) {
             $emitent = 'VISA';
         } elseif (preg_match('/^(51|52|53|54|55|62|67)/', $cardNumber)) {
@@ -32,6 +34,8 @@ class CardValidation {
             $emitent = 'American Express';
         } elseif (preg_match('/^2/', $cardNumber)) {
             $emitent = 'Мир';
+        } elseif (!preg_match("/[0-9]/",$cardNumber)) {
+            $isValid = "введена не цифра!";
         } else {
             $emitent = 'название эмитента не определено';
         }
